@@ -6,26 +6,14 @@ class SessionsController < ApplicationController
   def create
     @user = User.find_by(username: user_params[:username])
     if @user && @user.authenticate(user_params[:password])
-        render text: "User authenticated successfully!"
+      session[:user_id] = @user.id
+      flash[:notice] = "Authenticated successfully"
+      render text: "#{flash[:notice]}"
     else
       @user = User.new
-      render :new, alert: "Username or password invalid"
+      flash[:alert] = "Username or password invalid"
+      render :new
     end
-    # if a
-    #   if b
-    #     something()
-    #   else
-    #     something_else()
-    #   end
-    # else
-    #   something_else()
-    # end
-
-    # if a && b
-    #   something()
-    # else
-    #   something_else()
-    # end
   end
 
   def destroy
