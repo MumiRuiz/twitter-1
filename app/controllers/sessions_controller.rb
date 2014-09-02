@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
     if @user && @user.authenticate(user_params[:password])
       session[:user_id] = @user.id
       flash[:notice] = "Authenticated successfully"
-      render text: "#{flash[:notice]}"
+      redirect_to(tweets_path)
     else
       @user = User.new
       flash[:alert] = "Username or password invalid"
@@ -19,6 +19,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    session[:user_id] = nil
+    redirect_to(sessions_new_path)
   end
 
   def user_params
@@ -26,6 +28,6 @@ class SessionsController < ApplicationController
   end
 
   def redirect_if_authenticated
-    redirect_to(tweets_path) if current_user
+    redirect_to(tweets_path) if authenticated?
   end
 end

@@ -1,4 +1,5 @@
 class TweetsController < ApplicationController
+  before_action :redirect_unless_authenticated
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
 
   # GET /tweets
