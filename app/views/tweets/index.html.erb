@@ -1,5 +1,5 @@
 <%= link_to 'Logout', logout_path %>
-
+<br>
 <%= form_for(@tweet) do |f| %>
   <% if @tweet.errors.any? %>
     <div id="error_explanation">
@@ -15,7 +15,7 @@
 
   <div class="field">
     <%= f.label :text %><br>
-    <%= f.text_field :text %>
+    <%= f.text_area :text %>
   </div>
   <div class="field">
     <%= f.label :attachment %><br>

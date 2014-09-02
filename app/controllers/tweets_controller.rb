@@ -24,7 +24,9 @@ class TweetsController < ApplicationController
     if @tweet.save
       redirect_to tweets_path, notice: 'Tweet was successfully created.'
     else
-      redirect_to tweets_path, alert: "Tweet couldn't be created."
+      flash[:alert] = "Tweet couldn't be created."
+      @tweets = Tweet.all
+      render :index
     end
   end
 
