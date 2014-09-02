@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_action :redirect_if_authenticated, :only => [:new, :create]
+
   def new
     @user = User.new
   end
@@ -21,5 +23,9 @@ class SessionsController < ApplicationController
 
   def user_params
     params.require(:user).permit(:username, :password)
+  end
+
+  def redirect_if_authenticated
+    redirect_to(tweets_path) if current_user
   end
 end
