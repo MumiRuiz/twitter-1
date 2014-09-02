@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :tweets
+
   get 'sessions/new'
   #get 'sessions/create'
   post 'sessions' => 'sessions#create'
