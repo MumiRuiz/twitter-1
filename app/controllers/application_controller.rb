@@ -14,6 +14,6 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    @user = User.find(session[:user_id]) rescue nil
+    @user ||= User.find(session[:user_id]) rescue nil
   end
 end

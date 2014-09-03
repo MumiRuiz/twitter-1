@@ -1,6 +1,6 @@
 class TweetsController < ApplicationController
   before_action :redirect_unless_authenticated
-  before_action :set_tweet, only: [:show, :edit, :update, :destroy]
+  before_action :set_tweet, only: [:show, :edit, :update, :destroy, :fav, :unfav]
 
   # GET /tweets
   # GET /tweets.json
@@ -17,17 +17,24 @@ class TweetsController < ApplicationController
   # POST /tweets
   # POST /tweets.json
   def create
-    @tweet = current_user.tweets.new(tweet_params)
-    #@tweet = Tweet.new(tweet_params)
-    #@tweet.user = @user
-
-    if @tweet.save
+    begin
+      @tweet = current_user.tweet!(tweet_params)
       redirect_to tweets_path, notice: 'Tweet was successfully created.'
-    else
+    rescue
       flash[:alert] = "Tweet couldn't be created."
       @tweets = Tweet.all
       render :index
     end
+  end
+
+  def fav
+    current_user.favorite!(@tweet)
+    redirect_to :back
+  end
+
+  def unfav
+    current_user.unfavorite!(@tweet)
+    redirect_to :back
   end
 
   # DELETE /tweets/1

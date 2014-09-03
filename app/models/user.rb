@@ -7,4 +7,17 @@ class User < ActiveRecord::Base
   validates :name, presence: true
 
   has_many :tweets
+  has_many :favorites
+
+  def tweet!(tweet_params)
+    self.tweets.create!(tweet_params)
+  end
+
+  def favorite!(tweet)
+    self.favorites.create!(tweet: tweet)
+  end
+
+  def unfavorite!(tweet)
+    self.favorites.find(tweet.id).destroy
+  end
 end

@@ -1,5 +1,17 @@
 Rails.application.routes.draw do
-  resources :tweets
+  resources :tweets do
+    member do
+      post :fav
+      delete :unfav
+    end
+    #collection do
+    #  get :search
+    #end
+  end
+ 
+  #post 'tweets/:id/fav' => 'tweets#fav'
+  #delete 'tweets/:id/unfav' => 'tweets#unfav'
+
 
   get 'sessions/new'
   #get 'sessions/create'
