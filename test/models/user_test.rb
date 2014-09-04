@@ -30,4 +30,14 @@ class UserTest < ActiveSupport::TestCase
     @user.unfavorite!(tweet)
     assert_equal 0, @user.favorites.count
   end
+
+  def test_faved
+    tweet = @user.tweet!(text: "Hello, world!")
+    # assert_equal false, @user.faved?(tweet)
+    assert !@user.faved?(tweet)
+
+    @user.favorite!(tweet)
+    # assert_equal true, @user.faved?(tweet)
+    assert @user.faved?(tweet)
+  end
 end

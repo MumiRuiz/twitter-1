@@ -36,7 +36,7 @@
       <th>User</th>
       <th>Attachment</th>
       <th>Location</th>
-      <th colspan="3"></th>
+      <th colspan="5"></th>
     </tr>
   </thead>
 
@@ -50,6 +50,11 @@
         <td><%= tweet.location %></td>
         <td><%= link_to 'Show', tweet %></td>
         <td><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% unless @user.faved?(tweet) %>
+          <td><%= link_to 'Fav', fav_tweet_path(tweet), method: :post %></td>
+        <% else %>
+          <td><%= link_to 'Unfav', unfav_tweet_path(tweet), method: :delete %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

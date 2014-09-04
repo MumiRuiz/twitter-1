@@ -14,10 +14,17 @@ class User < ActiveRecord::Base
   end
 
   def favorite!(tweet)
+    # self.favorites.create!(tweet_id: tweet.id)
     self.favorites.create!(tweet: tweet)
   end
 
   def unfavorite!(tweet)
-    self.favorites.find(tweet.id).destroy
+    # self.favorites.find_by(tweet_id: tweet.id).destroy
+    self.favorites.find_by(tweet: tweet).destroy
+  end
+
+  def faved?(tweet)
+    # self.favorites.exists?(tweet_id: tweet.id)
+    self.favorites.exists?(tweet: tweet)
   end
 end
