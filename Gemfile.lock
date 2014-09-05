@@ -83,6 +83,8 @@ GEM
     mime-types (2.3)
     mini_portile (0.6.0)
     minitest (5.4.1)
+    minitest-rg (5.1.0)
+      minitest (~> 5.0)
     multi_json (1.10.1)
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
@@ -157,6 +159,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   jbuilder (~> 2.0)
   jquery-rails
+  minitest-rg
   rails (= 4.2.0.beta1)
   rails-html-sanitizer (~> 1.0)
   sass-rails (~> 5.0.0.beta1)
