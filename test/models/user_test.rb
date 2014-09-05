@@ -40,4 +40,28 @@ class UserTest < ActiveSupport::TestCase
     # assert_equal true, @user.faved?(tweet)
     assert @user.faved?(tweet)
   end
+
+  def test_follow
+    user2 = User.create!(username: 'laura', email: 'laura@laura.com', password: '1234', password_confirmation: '1234', name: 'Laura')
+    assert_equal 0, user2.followings.count
+    assert_equal 0, @user.followers.count
+
+    user2.follow(@user)
+
+    assert_equal 1, user2.followings.count
+    assert_equal 1, @user.followers.count
+  end
+
+  def test_unfollow
+    user2 = User.create!(username: 'laura', email: 'laura@laura.com', password: '1234', password_confirmation: '1234', name: 'Laura')
+    user2.follow(@user)
+
+    assert_equal 1, user2.followings.count
+    assert_equal 1, @user.followers.count
+
+    user2.unfollow(@user)
+    assert_equal 0, user2.followings.count
+    assert_equal 0, @user.followers.count
+    assert @user.persisted?
+  end
 end

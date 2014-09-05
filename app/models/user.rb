@@ -9,6 +9,12 @@ class User < ActiveRecord::Base
   has_many :tweets
   has_many :favorites
 
+  has_many :follower_relationships, class_name: "Relationship", foreign_key: :following_id
+  has_many :following_relationships, class_name: "Relationship", foreign_key: :follower_id
+
+  has_many :followers, through: :follower_relationships
+  has_many :followings, through: :following_relationships
+
   def tweet!(tweet_params)
     self.tweets.create!(tweet_params)
   end
@@ -26,5 +32,13 @@ class User < ActiveRecord::Base
   def faved?(tweet)
     # self.favorites.exists?(tweet_id: tweet.id)
     self.favorites.exists?(tweet: tweet)
+  end
+
+  def follow(user)
+    self.followings << user
+  end
+
+  def unfollow(user)
+    self.followings.delete(user)
   end
 end
