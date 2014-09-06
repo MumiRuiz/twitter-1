@@ -7,7 +7,9 @@ class User < ActiveRecord::Base
   validates :name, presence: true
 
   has_many :tweets
+
   has_many :favorites
+  has_many :favorite_tweets, through: :favorites, source: :tweet
 
   has_many :follower_relationships, class_name: "Relationship", foreign_key: :following_id
   has_many :following_relationships, class_name: "Relationship", foreign_key: :follower_id
@@ -21,17 +23,20 @@ class User < ActiveRecord::Base
 
   def favorite!(tweet)
     # self.favorites.create!(tweet_id: tweet.id)
-    self.favorites.create!(tweet: tweet)
+    # self.favorites.create!(tweet: tweet)
+    self.favorite_tweets << tweet
   end
 
   def unfavorite!(tweet)
     # self.favorites.find_by(tweet_id: tweet.id).destroy
-    self.favorites.find_by(tweet: tweet).destroy
+    # self.favorites.find_by(tweet: tweet).destroy
+    self.favorite_tweets.delete(tweet)
   end
 
   def faved?(tweet)
     # self.favorites.exists?(tweet_id: tweet.id)
-    self.favorites.exists?(tweet: tweet)
+    # self.favorites.exists?(tweet: tweet)
+    self.favorite_tweets.include?(tweet)
   end
 
   def follow(user)
