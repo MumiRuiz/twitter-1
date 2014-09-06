@@ -50,7 +50,7 @@
         <td><%= tweet.location %></td>
         <td><%= link_to 'Show', tweet %></td>
         <td><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% unless @user.faved?(tweet) %>
+        <% unless current_user.faved?(tweet) %>
           <td><%= link_to 'Fav', fav_tweet_path(tweet), method: :post %></td>
         <% else %>
           <td><%= link_to 'Unfav', unfav_tweet_path(tweet), method: :delete %></td>
