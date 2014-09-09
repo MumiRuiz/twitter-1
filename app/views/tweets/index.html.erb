@@ -54,9 +54,9 @@
         <td><%= link_to 'Show', tweet %></td>
         <td><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% unless current_user.faved?(tweet) %>
-          <td><%= link_to 'Fav', fav_tweet_path(tweet), method: :post %></td>
+          <td><img src = "http://pixabay.com/static/uploads/photo/2013/07/12/17/17/star-151958_640.png" width="25px"/> <%= link_to 'Fav', fav_tweet_path(tweet), method: :post %></td>
         <% else %>
-          <td><%= link_to 'Unfav', unfav_tweet_path(tweet), method: :delete %></td>
+          <td><img src = "http://pixabay.com/static/uploads/photo/2013/07/12/17/17/star-151957_640.png" width="25px"/><%= link_to 'Unfav', unfav_tweet_path(tweet), method: :delete %></td>
         <% end %>
         
       </tr>
