@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :follow, :unfollow, :favorites, :followers, :followings]
 
   # GET /users
   # GET /users.json
@@ -37,6 +37,7 @@ class UsersController < ApplicationController
     end
   end
 
+
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
@@ -50,6 +51,38 @@ class UsersController < ApplicationController
       end
     end
   end
+
+  def follow
+  user = User.find(params[:id])
+  unless current_user.follow(user)
+  flash[:error] = "Yous cannot follow yourself"
+  end
+   redirect_to :back
+  end
+
+  def unfollow
+    user = User.find(params[:id])
+    unless current_user.follow(user)
+    flash[:error] = "Yous cannot follow yourself"
+  end
+    redirect_to :back
+  end
+
+def favorites
+  user = User.find(params[:id])
+  @favorites = user.favorite_tweets
+end
+
+def followings
+  user = User.find(params[:id])
+  @followings = user.followings
+end
+
+def followers
+  user = User.find(params[:id])
+  @followers = user.followers
+  
+end
 
   # DELETE /users/1
   # DELETE /users/1.json

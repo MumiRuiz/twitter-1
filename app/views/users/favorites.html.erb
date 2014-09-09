@@ -1,0 +1,11 @@
+<h1> Listing Favorites</h1>
+
+
+<table>
+<ul>
+  <% @favorites.each do |tweets| %>
+    <li><%= tweets.text %></li>
+  <% end %>
+</ul>
+
+</table>

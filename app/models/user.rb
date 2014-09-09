@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: true
   validates :name, presence: true
 
-  has_many :tweets
+  has_many :tweets, :dependent => :destroy
 
   has_many :favorites
   has_many :favorite_tweets, through: :favorites, source: :tweet
@@ -40,10 +40,19 @@ class User < ActiveRecord::Base
   end
 
   def follow(user)
-    self.followings << user
+      begin
+      self.followings << user
+      rescue Exception => e
+      false
+      end
   end
 
   def unfollow(user)
     self.followings.delete(user)
+  end
+
+  def following?(user)
+    self.followings.exists?(user)
+    
   end
 end

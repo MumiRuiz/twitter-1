@@ -1,63 +1,62 @@
-<%= link_to 'Logout', logout_path %>
-<br>
-<%= form_for(@tweet) do |f| %>
-  <% if @tweet.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@tweet.errors.count, "error") %> prohibited this tweet from being saved:</h2>
+<p id="notice"><%= notice %></p>
 
-      <ul>
-      <% @tweet.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :text %><br>
-    <%= f.text_area :text %>
-  </div>
-  <div class="field">
-    <%= f.label :attachment %><br>
-    <%= f.text_field :attachment %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
-
-<h1>Listing Tweets</h1>
+<h1>Listing Users</h1>
 
 <table>
   <thead>
     <tr>
-      <th>Text</th>
-      <th>Date</th>
-      <th>User</th>
-      <th>Attachment</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Password</th>
+      <th>Cover photo</th>
+      <th>Profile picture</th>
       <th>Location</th>
+      <th>Private</th>
+      <th>Bio</th>
+      <th>Website</th>
+      <th>Timezone</th>
+      <th>Language</th>
+      <th>Phone</th>
+      <th>Verified</th>
+      <th>Name</th>
       <th colspan="5"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @tweets.each do |tweet| %>
+    <% @users.each do |user| %>
       <tr>
-        <td><%= tweet.text %></td>
-        <td><%= time_ago_in_words(tweet.created_at) %></td>
-        <td><%= tweet.user.username %></td>
-        <td><%= tweet.attachment %></td>
-        <td><%= tweet.location %></td>
-        <td><%= link_to 'Show', tweet %></td>
-        <td><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% unless current_user.faved?(tweet) %>
-          <td><%= link_to 'Fav', fav_tweet_path(tweet), method: :post %></td>
+        <td><%= user.username %></td>
+        <td><%= user.email %></td>
+        <td><%= user.password %></td>
+        <td><%= user.cover_photo %></td>
+        <td><%= user.profile_picture %></td>
+        <td><%= user.location %></td>
+        <td><%= user.private %></td>
+        <td><%= user.bio %></td>
+        <td><%= user.website %></td>
+        <td><%= user.timezone %></td>
+        <td><%= user.language %></td>
+        <td><%= user.phone %></td>
+        <td><%= user.verified %></td>
+        <td><%= user.name %></td>
+        <td><%= link_to 'Show', user %></td>
+        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% unless current_user.following?(user) %>
+        <td><%= link_to 'Follow', follow_user_path(user), method: :post %></td>
         <% else %>
-          <td><%= link_to 'Unfav', unfav_tweet_path(tweet), method: :delete %></td>
+        <td><%= link_to 'Unfollow', unfollow_user_path(user), method: :delete %></td>
         <% end %>
+        
+        
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
+
+<%= link_to 'New User', new_user_path %>
+
+<%= link_to 'Sign Out', new_user_path %>

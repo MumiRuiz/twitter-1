@@ -5,8 +5,12 @@ class TweetsController < ApplicationController
   # GET /tweets
   # GET /tweets.json
   def index
-    @tweets = Tweet.all
+    @tweets = Tweet.where("user_id IN (?) OR user_id = ?", current_user.followings.pluck(:id), current_user.id) #Tweet.all
     @tweet = Tweet.new
+    # Tweet.where(user: current_user.followings)
+    # user_ids = current_user.followings.pluck(:id) + current_user.id
+    # Tweet.where(user_id: user_ids)
+
   end
 
   # GET /tweets/1

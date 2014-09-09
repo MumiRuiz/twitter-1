@@ -1,0 +1,16 @@
+<h1> Listing Followers</h1>
+
+
+
+
+<table>
+<ul>
+  <% @followers.each do |f| %>
+   <!-- f es un valor que entra el ususario, en este caso va a ser el usuario que seguimos o nos sigue -->
+
+  <li><p> <%= f.username %></p></li>
+  <% end %>
+  
+</ul>
+
+</table>
