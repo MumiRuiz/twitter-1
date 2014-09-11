@@ -7,14 +7,12 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<% flash.each do |name, text| %>
-	<p class="<%= name %>"><%= text %></p>
+	<% flash.each do |name, text| %>
+		<p class="<%= name %>"><%= text %></p>
+	<% end %>
+	<%= image_tag "tw_icon.png", height: "50px", width: "50px", class: "main_image" %>
+	<%= yield %>
 
-<% end %>
-
-<%= yield %>
-
+	<%= link_to 'Logout', logout_path %>
 </body>
-
-<%= link_to 'Logout', logout_path %>
 </html>
