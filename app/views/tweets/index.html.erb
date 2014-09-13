@@ -1,8 +1,17 @@
-<%= link_to 'Logout', logout_path %>
-<%= link_to 'Favorites', favorites_user_path(@_user)  %>
-<%= link_to 'Followers', followers_user_path(@_user) %>
-<%= link_to 'Followings', followings_user_path(@_user) %>
-<br>
+<nav>
+  <ul>
+    <li><%= link_to 'Favorites', favorites_user_path(@_user)  %></li>
+    <li><%= link_to 'Followers', followers_user_path(@_user) %></li>
+    <li><%= link_to 'Followings', followings_user_path(@_user) %></li>
+    <li><%= link_to 'Logout', logout_path %></li>
+
+
+  </ul>
+  
+  
+  
+  
+</nav>
 <%= form_for(@tweet) do |f| %>
   <% if @tweet.errors.any? %>
     <div id="error_explanation">
@@ -19,10 +28,6 @@
   <div class="field">
     <%= f.label :text %><br>
     <%= f.text_area :text %>
-  </div>
-  <div class="field">
-    <%= f.label :attachment %><br>
-    <%= f.text_field :attachment %>
   </div>
   <div class="actions">
     <%= f.submit %>
